@@ -6,6 +6,7 @@ import { MusicService } from '../music.service'
 @Component({
     selector: 'app-music-list',
     templateUrl: 'music-list.page.component.html',
+    styleUrls: ['music-list.page.component.css'],
 })
 
 export class MusicListPageComponent implements OnInit {

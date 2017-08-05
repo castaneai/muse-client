@@ -3,4 +3,7 @@ export class Music {
     title: string
     artist: string
     album: string
+
+    artworkUrl: string
+    audioDataUrl: string
 }
