@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 
 import { Music } from '../music'
 import { MusicService } from '../music.service'
+import { MusicPlayerService } from '../music-player.service'
 
 @Component({
     selector: 'app-music-list',
@@ -13,7 +14,9 @@ export class MusicListPageComponent implements OnInit {
 
     musics: Music[]
 
-    constructor(private musicService: MusicService) { }
+    constructor(
+        private musicService: MusicService,
+        private musicPlayerService: MusicPlayerService) { }
 
     ngOnInit() {
         this.musicService.getMusics()
@@ -21,6 +24,6 @@ export class MusicListPageComponent implements OnInit {
     }
 
     onSelectMusic(music: Music) {
-        console.log(music + ' clicked.')
+        this.musicPlayerService.play(music)
     }
 }

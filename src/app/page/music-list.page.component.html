@@ -1,4 +1,13 @@
-<li class="music-item" [style.background-image]="'url(' + music.artworkUrl + ')'"  *ngFor="let music of musics" (click)="onSelectMusic(music)">
-    {{ music.title }}
-    <audio src="{{ music.audioDataUrl }}" preload="metadata" controls></audio>
-</li>
+<div class="columns">
+    <div class="column col-3 col-xs-12">
+
+        <!-- music item -->
+        <div class="music-item" *ngFor="let music of musics" (click)="onSelectMusic(music)">
+            <!-- artwork -->
+            <div class="music-item-artwork">
+                <img src="{{ music.artworkUrl }}" class="music-item-artwork img-responsive img-fit-cover" />
+            </div>
+        </div>
+
+    </div>
+</div>

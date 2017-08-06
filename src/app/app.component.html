@@ -1,2 +1,15 @@
-<h1>muse</h1>
-<app-music-list></app-music-list>
+<div class="container">
+    <h1>muse</h1>
+
+    <!-- main menu -->
+    <ul class="tab tab-block">
+        <li class="tab-item">
+            <a routerLink="/music" routerLinkActive="active">Music</a>
+        </li>
+        <li class="tab-item">
+            <a routerLink="/playlists" routerLinkActive="active">Playlists</a>
+        </li>
+    </ul>
+
+    <router-outlet></router-outlet>
+</div>
