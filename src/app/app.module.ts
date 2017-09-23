@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app.routing.module'
 import { MusicListPageComponent } from './page/music-list.page.component'
 import { PlaylistsPageComponent } from './page/playlists.page.component'
 
+import { PlaybackUIComponent } from './ui/playback.ui.component'
+
 import { MusicService } from './music.service'
 import { MusicPlayerService } from './music-player.service'
 
@@ -19,6 +21,9 @@ import { MusicPlayerService } from './music-player.service'
     // pages
     MusicListPageComponent,
     PlaylistsPageComponent,
+
+    // ui
+    PlaybackUIComponent,
   ],
   imports: [
     // angular modules

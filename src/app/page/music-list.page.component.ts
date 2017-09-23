@@ -24,6 +24,6 @@ export class MusicListPageComponent implements OnInit {
     }
 
     onSelectMusic(music: Music) {
-        this.musicPlayerService.play(music)
+        this.musicPlayerService.setCurrentMusicAndPlay(music)
     }
 }
