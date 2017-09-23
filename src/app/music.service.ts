@@ -11,6 +11,10 @@ interface GetMusicsResponse {
     musics: Music[]
 }
 
+interface UploadMusicResponse {
+    musics: Music[]
+}
+
 @Injectable()
 export class MusicService {
 
@@ -19,6 +23,15 @@ export class MusicService {
     getMusics(): Promise<Music[]> {
         return this.httpClient
             .get<GetMusicsResponse>(environment.apiUrl + '/musics')
+            .map(res => res.musics)
+            .toPromise()
+    }
+
+    uploadMusic(files: File[]) {
+        const formData = new FormData()
+        files.forEach(f => formData.append('files', f))
+        return this.httpClient
+            .post<UploadMusicResponse>(environment.apiUrl + '/musics', formData)
             .map(res => res.musics)
             .toPromise()
     }
