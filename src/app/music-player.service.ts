@@ -16,12 +16,15 @@ export class MusicPlayerService {
      * 現在プレイヤーにセットしている音楽
      * ない場合はnull
      */
-    private currentMusic: Music | null
+    private currentMusic: Music | null = null
 
-    private audioElement: HTMLAudioElement | null
+    private audioElement: HTMLAudioElement = new Audio()
 
     isCurrentMusic(musicId: number): boolean {
-        return this.currentMusic && this.currentMusic.id === musicId
+        if (this.currentMusic === null) {
+            return false
+        }
+        return this.currentMusic.id === musicId
     }
 
     setCurrentMusic(music: Music) {

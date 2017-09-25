@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/tslint-strict-null-checks/rules"
   ],
   "rules": {
     "arrow-return-shorthand": true,
@@ -137,6 +138,7 @@
     "directive-class-suffix": true,
     "no-access-missing-member": true,
     "templates-use-public": true,
-    "invoke-injectable": true
+    "invoke-injectable": true,
+    "no-uninitialized": [true, "variables", "properties"]
   }
 }
