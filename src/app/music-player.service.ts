@@ -13,12 +13,30 @@ export class MusicPlayerService {
     onCurrentMusicChanged = this.onCurrentMusicChangedSource.asObservable()
 
     /**
+     * 曲の再生位置％が変わったら流れるストリーム
+     */
+    private onCurrentMusicTimePercentChangedSource = new Subject<number>()
+    onCurrentMusicTimePercentChanged = this.onCurrentMusicTimePercentChangedSource.asObservable()
+
+    /**
      * 現在プレイヤーにセットしている音楽
      * ない場合はnull
      */
     private currentMusic: Music | null = null
 
     private audioElement: HTMLAudioElement = new Audio()
+
+    constructor() {
+        this.audioElement.addEventListener('timeupdate', () => {
+            const percent = (this.audioElement.currentTime / this.audioElement.duration) * 100.0
+            this.onCurrentMusicTimePercentChangedSource.next(percent)
+        })
+    }
+
+    isMusicLoaded() {
+        // @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState
+        return this.audioElement.readyState >= 1;
+    }
 
     isCurrentMusic(musicId: number): boolean {
         if (this.currentMusic === null) {
@@ -36,7 +54,7 @@ export class MusicPlayerService {
                 // TODO: フェードアウト
                 this.audioElement.pause()
             }
-            this.audioElement = new Audio(music.audioDataUrl)
+            this.audioElement.src = music.audioDataUrl
             this.audioElement.load()
         }
         this.currentMusic = music
@@ -54,5 +72,29 @@ export class MusicPlayerService {
 
     pause() {
         this.audioElement.pause()
+    }
+
+    /**
+     * 現在の再生時刻を秒位置で指定
+     * @param time 再生時刻（秒）
+     */
+    setCurrentTime(time: number) {
+        if (!this.isMusicLoaded()) {
+            return
+        }
+        this.audioElement.currentTime = time
+        // onCurrentMusicTimePercentChangedは外部からのイベントによって変更されたときのみ流すので、ここでは流さない
+    }
+
+    /**
+     * 現在の再生時刻を％で指定
+     * @param percent 0-100
+     */
+    setCurrentTimeWithRatio(percent: number) {
+        if (!this.isMusicLoaded()) {
+            return
+        }
+        const time = this.audioElement.duration * (percent / 100.0)
+        this.setCurrentTime(time)
     }
 }

@@ -12,7 +12,7 @@ import { MusicPlayerService } from '../music-player.service'
 
 export class MusicListPageComponent implements OnInit {
 
-    musics: Music[]
+    musics: Music[] = []
 
     constructor(
         private musicService: MusicService,
