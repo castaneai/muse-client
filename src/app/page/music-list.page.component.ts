@@ -14,6 +14,8 @@ export class MusicListPageComponent implements OnInit {
 
     musics: Music[] = []
 
+    selectedMusic: Music|null = null
+
     constructor(
         private musicService: MusicService,
         private musicPlayerService: MusicPlayerService) { }
@@ -23,7 +25,18 @@ export class MusicListPageComponent implements OnInit {
             .then(musics => this.musics = musics)
     }
 
+    isSelected(music: Music) {
+        if (this.selectedMusic === null) {
+            return false
+        }
+        return this.selectedMusic.id === music.id
+    }
+
     onSelectMusic(music: Music) {
+        this.selectedMusic = music
+    }
+
+    onPlayMusic(music: Music) {
         this.musicPlayerService.setCurrentMusicAndPlay(music)
     }
 }
