@@ -4,11 +4,17 @@
 
         <div class="music-item"
         [class.selected]="isSelected(music)"
+        [class.playing]="isPlaying(music)"
         (click)="onSelectMusic(music)"
-        (dblclick)="onPlayMusic(music)">
+        (dblclick)="onPlayMusic(music)"
+        (mouseover)="onMouseoverMusic(music)"
+        >
             <!-- artwork -->
             <div class="music-item-artwork">
                 <img src="{{ music.artworkUrl }}" class="music-item-artwork img-responsive img-fit-cover" />
+            </div>
+
+            <div class="overlay" *ngIf="isHovering(music)">
             </div>
         </div>
 

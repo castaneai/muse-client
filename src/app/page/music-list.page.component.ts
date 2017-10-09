@@ -15,6 +15,7 @@ export class MusicListPageComponent implements OnInit {
     musics: Music[] = []
 
     selectedMusic: Music|null = null
+    hoveredMusic: Music|null = null
 
     constructor(
         private musicService: MusicService,
@@ -26,10 +27,11 @@ export class MusicListPageComponent implements OnInit {
     }
 
     isSelected(music: Music) {
-        if (this.selectedMusic === null) {
-            return false
-        }
-        return this.selectedMusic.id === music.id
+        return this.selectedMusic !== null && this.selectedMusic.id === music.id
+    }
+
+    isPlaying(music: Music) {
+        return this.musicPlayerService.isCurrentMusic(music.id)
     }
 
     onSelectMusic(music: Music) {
@@ -38,5 +40,17 @@ export class MusicListPageComponent implements OnInit {
 
     onPlayMusic(music: Music) {
         this.musicPlayerService.setCurrentMusicAndPlay(music)
+    }
+
+    isHovering(music: Music) {
+        return this.hoveredMusic !== null && this.hoveredMusic.id === music.id
+    }
+
+    onMouseoverMusic(music: Music) {
+        this.hoveredMusic = music
+    }
+
+    onMouseoutMusic(music: Music) {
+        this.hoveredMusic = null
     }
 }
